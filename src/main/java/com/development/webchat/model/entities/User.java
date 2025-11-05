@@ -3,9 +3,13 @@ package com.development.webchat.model.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	private String id;
 	private String name;
 	private StatusUser status;
@@ -20,7 +24,6 @@ public class User implements Serializable{
 		this.name = name;
 		this.status = status;
 	}
-
 
 	public String getId() {
 		return id;
