@@ -17,8 +17,8 @@ public class Chat implements Serializable {
 	
 	@Id
 	private String id;
-	private String idUser0;
-	private String idUser1;
+	private String idUserZ;
+	private String idUserX;
 	private Instant lastActivity;
 	private Instant firstChat;
 	private List<MenssageDTO> menssages = new ArrayList<>();
@@ -75,20 +75,19 @@ public class Chat implements Serializable {
 		this.menssages = menssages;
 	}
 
-	public String getIdUser0() {
-		return idUser0;
+	public String getIdUserZ() {
+		return idUserZ;
 	}
 
-	public void setIdUser0(String idUser0) {
-		this.idUser0 = idUser0;
+	public String getIdUserX() {
+		return idUserX;
 	}
 
-	public String getIdUser1() {
-		return idUser1;
+	public void setIdUserZ(String idUserZ) {
+		this.idUserZ = idUserZ;
 	}
 
-	public void setIdUser1(String idUser1) {
-		this.idUser1 = idUser1;
+	public void setIdUserX(String idUserX) {
+		this.idUserX = idUserX;
 	}
-	
 }
