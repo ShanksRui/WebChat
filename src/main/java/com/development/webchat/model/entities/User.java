@@ -1,9 +1,12 @@
 package com.development.webchat.model.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class User implements Serializable{
@@ -14,6 +17,8 @@ public class User implements Serializable{
 	private String name;
 	private StatusUser status;
 	
+	@DBRef(lazy = true)
+	private List<Chat> chats = new ArrayList<>();
 	
 	public User () {
 		
@@ -23,6 +28,16 @@ public class User implements Serializable{
 		this.id = id;
 		this.name = name;
 		this.status = status;
+	}
+
+	
+	
+	public List<Chat> getChats() {
+		return chats;
+	}
+
+	public void setChats(List<Chat> chats) {
+		this.chats = chats;
 	}
 
 	public String getId() {

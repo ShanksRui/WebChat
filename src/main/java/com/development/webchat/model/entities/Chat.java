@@ -11,16 +11,17 @@ import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-@CompoundIndex(name = "users_Chat",def = "{'idChat': 1,'idUser': 1}",unique = true)
+@CompoundIndex(name = "users_Chat",def = "{'idUser0': 1,'idUser1': 1}",unique = true)
 public class Chat implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private String id;
-	private List<User> users = new ArrayList<>();
+	private String idUser0;
+	private String idUser1;
 	private Instant lastActivity;
 	private Instant firstChat;
-	private List<Menssage> menssages = new ArrayList<>();
+	private List<MenssageDTO> menssages = new ArrayList<>();
 	
 	
 	public Chat() {
@@ -35,9 +36,6 @@ public class Chat implements Serializable {
 	public String getId() {
 		return id;
 	}
-	public List<User> getUsers() {
-		return users;
-	}
 	public Instant getLastActivity() {
 		return lastActivity;
 	}
@@ -46,9 +44,6 @@ public class Chat implements Serializable {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public void setUsers(List<User> users) {
-		this.users = users;
 	}
 	public void setLastActivity(Instant lastActivity) {
 		this.lastActivity = lastActivity;
@@ -72,12 +67,28 @@ public class Chat implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
-	public List<Menssage> getMenssages() {
+	public List<MenssageDTO> getMenssages() {
 		return menssages;
 	}
 
-	public void setMenssages(List<Menssage> menssages) {
+	public void setMenssages(List<MenssageDTO> menssages) {
 		this.menssages = menssages;
+	}
+
+	public String getIdUser0() {
+		return idUser0;
+	}
+
+	public void setIdUser0(String idUser0) {
+		this.idUser0 = idUser0;
+	}
+
+	public String getIdUser1() {
+		return idUser1;
+	}
+
+	public void setIdUser1(String idUser1) {
+		this.idUser1 = idUser1;
 	}
 	
 }
