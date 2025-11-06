@@ -8,11 +8,11 @@ public class ChatService {
 
 	
 	private final ChatRepository repository;
-	
+
 	public ChatService(ChatRepository repository) {
 		this.repository = repository;
 	}
 	
-
 	
 }
+

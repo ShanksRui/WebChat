@@ -3,8 +3,11 @@ package com.development.webchat.model.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
@@ -20,18 +23,30 @@ public class Chat implements Serializable {
 	private String idUserZ;
 	private String idUserX;
 	private Instant lastActivity;
-	private Instant firstChat;
+	private final Instant firstChat;
+	private Integer totalMsg;
+	
 	private List<MenssageDTO> menssages = new ArrayList<>();
 	
 	
 	public Chat() {
+		this.firstChat = null;
 		
 	}
 	
-	public Chat(String id, Instant lastActivity, Instant firstChat) {
+	public Chat(String id, String idUserZ, String idUserX, Instant lastActivity, Instant firstChat, Integer totalMsg ){
 		this.id = id;
+		this.idUserZ = idUserZ;
+		this.idUserX = idUserX;
 		this.lastActivity = lastActivity;
 		this.firstChat = firstChat;
+		this.totalMsg = totalMsg;
+	}
+
+	public Chat(String id) {
+		this.id = id;
+		this.firstChat = null;
+		
 	}
 	public String getId() {
 		return id;
@@ -48,9 +63,6 @@ public class Chat implements Serializable {
 	public void setLastActivity(Instant lastActivity) {
 		this.lastActivity = lastActivity;
 	}
-	public void setFirstChat(Instant firstChat) {
-		this.firstChat = firstChat;
-	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -66,7 +78,16 @@ public class Chat implements Serializable {
 		Chat other = (Chat) obj;
 		return Objects.equals(id, other.id);
 	}
-
+	public void joinUser(User x,User z) {
+		setIdUserX(x.getId());
+		setIdUserZ(z.getId());
+	}
+	public void flowDate() {
+		 lastActivity = menssages.stream().map(MenssageDTO::getMommentMsg)
+				 .filter(Objects::nonNull)
+				 .max(Comparator.naturalOrder()).orElse(null);
+	}
+	
 	public List<MenssageDTO> getMenssages() {
 		return menssages;
 	}
