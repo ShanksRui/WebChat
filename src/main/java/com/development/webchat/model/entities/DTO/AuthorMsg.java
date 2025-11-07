@@ -9,6 +9,10 @@ public class AuthorMsg {
 	private String id;
 	private String name;
 	
+	public AuthorMsg() {
+		
+	}
+	
 	public AuthorMsg(User user) {
 		this.id = user.getId();
 		this.name = user.getName();

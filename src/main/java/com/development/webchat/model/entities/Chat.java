@@ -36,7 +36,6 @@ public class Chat implements Serializable {
 		this.id = id;
 	}
 	
-
 	public String getId() {
 		return id;
 	}
@@ -76,6 +75,10 @@ public class Chat implements Serializable {
 		return first = menssages.stream().map(MenssageDTO::getMommentMsg)
 				 .filter(Objects::nonNull)
 				 .min(Instant::compareTo).orElse(null);
+	}
+	
+	public Integer getTotalMsg() {
+	  return menssages.size();
 	}
 	
 	public List<MenssageDTO> getMenssages() {
