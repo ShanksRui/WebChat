@@ -5,23 +5,23 @@ import java.time.Instant;
 public class MenssageDTO  {
 	
     private AuthorMsg authorMsg;
-    private String menssage;
+    private String text;
     private Instant mommentMsg;
     
     public MenssageDTO() {
     	
     }
     
-	public MenssageDTO(AuthorMsg authorMsg, String menssage, Instant mommentMsg) {
+	public MenssageDTO(AuthorMsg authorMsg, String text, Instant mommentMsg) {
 		this.authorMsg = authorMsg;
-		this.menssage = menssage;
+		this.text = text;
 		this.mommentMsg = mommentMsg;
 	}
 	public AuthorMsg getAuthorMsg() {
 		return authorMsg;
 	}
 	public String getMenssage() {
-		return menssage;
+		return text;
 	}
 	public Instant getMommentMsg() {
 		return mommentMsg;
@@ -29,8 +29,8 @@ public class MenssageDTO  {
 	public void setAuthorMsg(AuthorMsg authorMsg) {
 		this.authorMsg = authorMsg;
 	}
-	public void setMenssage(String menssage) {
-		this.menssage = menssage;
+	public void setMenssage(String text) {
+		this.text = text;
 	}
 	public void setMommentMsg(Instant mommentMsg) {
 		this.mommentMsg = mommentMsg;
