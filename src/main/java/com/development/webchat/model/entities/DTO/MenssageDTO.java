@@ -1,7 +1,6 @@
-package com.development.webchat.model.entities;
-import java.time.Instant;
+package com.development.webchat.model.entities.DTO;
 
-import com.development.webchat.model.entities.DTO.AuthorMsg;
+import java.time.Instant;
 
 public class MenssageDTO  {
 	

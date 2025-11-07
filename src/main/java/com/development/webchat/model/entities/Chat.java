@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.development.webchat.model.entities.DTO.MenssageDTO;;
 
 @Document
 @CompoundIndex(name = "users_Chat",def = "{'idUser0': 1,'idUser1': 1}",unique = true)
@@ -22,32 +23,20 @@ public class Chat implements Serializable {
 	private String id;
 	private String idUserZ;
 	private String idUserX;
-	private Instant lastActivity;
-	private final Instant firstChat;
-	private Integer totalMsg;
+	private Instant lastActivity;	
+	private Instant firstChat;
 	
 	private List<MenssageDTO> menssages = new ArrayList<>();
 	
-	
 	public Chat() {
-		this.firstChat = null;
 		
 	}
 	
-	public Chat(String id, String idUserZ, String idUserX, Instant lastActivity, Instant firstChat, Integer totalMsg ){
-		this.id = id;
-		this.idUserZ = idUserZ;
-		this.idUserX = idUserX;
-		this.lastActivity = lastActivity;
-		this.firstChat = firstChat;
-		this.totalMsg = totalMsg;
-	}
-
 	public Chat(String id) {
 		this.id = id;
-		this.firstChat = null;
-		
 	}
+	
+
 	public String getId() {
 		return id;
 	}
@@ -61,31 +50,32 @@ public class Chat implements Serializable {
 		this.id = id;
 	}
 	public void setLastActivity(Instant lastActivity) {
-		this.lastActivity = lastActivity;
+	   this.lastActivity = flowDateLast(lastActivity);
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Chat other = (Chat) obj;
-		return Objects.equals(id, other.id);
+	
+	public void setFirstChat(Instant firstChat) {
+		this.firstChat= initialMsg(firstChat); 	
+		
 	}
 	public void joinUser(User x,User z) {
 		setIdUserX(x.getId());
 		setIdUserZ(z.getId());
 	}
-	public void flowDate() {
-		 lastActivity = menssages.stream().map(MenssageDTO::getMommentMsg)
+	public Instant flowDateLast(Instant last) {	
+		Instant temp = menssages.stream().map(MenssageDTO::getMommentMsg)
 				 .filter(Objects::nonNull)
-				 .max(Comparator.naturalOrder()).orElse(null);
+				 .max(Instant::compareTo).orElse(null);
+		
+		if(last.equals(temp)){
+			return last;
+		}else {
+			throw new IllegalArgumentException("argument invalid");
+		}
+	}
+	public Instant initialMsg(Instant first) {
+		return first = menssages.stream().map(MenssageDTO::getMommentMsg)
+				 .filter(Objects::nonNull)
+				 .min(Instant::compareTo).orElse(null);
 	}
 	
 	public List<MenssageDTO> getMenssages() {
@@ -110,5 +100,20 @@ public class Chat implements Serializable {
 
 	public void setIdUserX(String idUserX) {
 		this.idUserX = idUserX;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Chat other = (Chat) obj;
+		return Objects.equals(id, other.id);
 	}
 }
