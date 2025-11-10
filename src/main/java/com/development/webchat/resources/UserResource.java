@@ -8,32 +8,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.development.webchat.model.entities.Chat;
-import com.development.webchat.services.ChatService;
-
+import com.development.webchat.model.entities.User;
+import com.development.webchat.services.UserService;
 @RestController
-@RequestMapping("/chats")
-public class ChatResource {
+@RequestMapping("/users")
+public class UserResource {
 
-	private final ChatService service;
+	private final UserService service;
 	
-	public ChatResource(ChatService service) {
+	public UserResource(UserService service) {
 		this.service = service;
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<Chat>> findAll(){
-		List<Chat> chats = service.findAll();
-		return ResponseEntity.ok().body(chats);
+	public ResponseEntity<List<User>> findAll(){
+		List<User> users = service.findAll();
+		return ResponseEntity.ok().body(users);
 	}
 	@GetMapping("/{id}")
-	public ResponseEntity<Chat> findById(@PathVariable String id){
-		Chat c = service.findById(id);
+	public ResponseEntity<User> findById(@PathVariable String id){
+		User c = service.findById(id);
 		return ResponseEntity.ok().body(c);
 	}
 	public ResponseEntity<Void> delete(@PathVariable String id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
 }
