@@ -20,20 +20,25 @@ public class Message  {
 	public AuthorMsg getAuthorMsg() {
 		return authorMsg;
 	}
-	public String getMenssage() {
-		return text;
-	}
-	public Instant getMommentMsg() {
-		return mommentMsg;
-	}
+	
 	public void setAuthorMsg(AuthorMsg authorMsg) {
 		this.authorMsg = authorMsg;
 	}
-	public void setMenssage(String text) {
-		this.text = text;
+	
+	public Instant getMommentMsg() {
+		return mommentMsg;
 	}
+
 	public void setMommentMsg(Instant mommentMsg) {
 		this.mommentMsg = mommentMsg;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
       
 }
