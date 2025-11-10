@@ -3,29 +3,28 @@ package com.development.webchat.model.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.development.webchat.model.entities.DTO.Message;;
 
 @Document
+@CompoundIndex(name = "users_Chat", def = "{'user0Id': 1, 'user1Id': 1}", unique = true)
+
 public class Chat implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	private String id;
-	@DBRef(lazy = true)
-	private Set<User> participants = new HashSet<>();
-	private Instant lastActivity;	
-	private Instant firstChat;
-	
-	private List<Message> menssages = new ArrayList<>();
+	    @Id
+	    private String id;
+	    private String user0Id;
+	    private String user1Id;
+	    private List<Message> messages = new ArrayList<>();
+	    private Instant lastActivity;
+	    private Instant firstChat;
 	
 	public Chat() {
 		
@@ -57,7 +56,7 @@ public class Chat implements Serializable {
 	}
 	
 	public Instant flowDateLast(Instant last) {	
-		Instant temp = menssages.stream().map(Message::getMommentMsg)
+		Instant temp = messages.stream().map(Message::getMommentMsg)
 				 .filter(Objects::nonNull)
 				 .max(Instant::compareTo).orElse(null);
 		
@@ -68,24 +67,36 @@ public class Chat implements Serializable {
 		}
 	}
 	public Instant initialMsg(Instant first) {
-		return first = menssages.stream().map(Message::getMommentMsg)
+		return first = messages.stream().map(Message::getMommentMsg)
 				 .filter(Objects::nonNull)
 				 .min(Instant::compareTo).orElse(null);
 	}
 	
 	public Integer getTotalMsg() {
-	  return menssages.size();
+	  return messages.size();
 	}
 	
-	public List<Message> getMenssages() {
-		return menssages;
+	public List<Message> getMessages() {
+		return messages;
 	}
 
-	public Set<User> getParticipants() {
-		return participants;
+  
+	public String getUser0Id() {
+		return user0Id;
 	}
 
-	
+	public String getUser1Id() {
+		return user1Id;
+	}
+
+	public void setUser0Id(String user0Id) {
+		this.user0Id = user0Id;
+	}
+
+	public void setUser1Id(String user1Id) {
+		this.user1Id = user1Id;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

@@ -39,8 +39,9 @@ public class Seeding implements CommandLineRunner{
 		Message msg = new Message(new AuthorMsg(u1), "opa mano", Instant.parse("2003-03-06T22:10:22Z"));
 		Message msg1 = new Message(new AuthorMsg(u2), "eai", Instant.parse("2003-03-06T23:10:22Z"));
 		Chat c1 = new Chat();
-		c1.getParticipants().addAll(Arrays.asList(u1,u2));
-		c1.getMenssages().addAll(Arrays.asList(msg,msg1));
+		c1.setUser0Id(u1.getId());
+		c1.setUser1Id(u2.getId());
+		c1.getMessages().addAll(Arrays.asList(msg,msg1));
 		c1.setLastActivity(msg1.getMommentMsg());
 		c1.setFirstChat(msg.getMommentMsg());
         
