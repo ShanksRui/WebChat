@@ -2,17 +2,17 @@ package com.development.webchat.model.entities.DTO;
 
 import java.time.Instant;
 
-public class MenssageDTO  {
+public class Message  {
 	
     private AuthorMsg authorMsg;
     private String text;
     private Instant mommentMsg;
     
-    public MenssageDTO() {
+    public Message() {
     	
     }
     
-	public MenssageDTO(AuthorMsg authorMsg, String text, Instant mommentMsg) {
+	public Message(AuthorMsg authorMsg, String text, Instant mommentMsg) {
 		this.authorMsg = authorMsg;
 		this.text = text;
 		this.mommentMsg = mommentMsg;

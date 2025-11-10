@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.development.webchat.model.entities.Chat;
-import com.development.webchat.model.entities.StatusUser;
+import com.development.webchat.model.entities.Status;
 import com.development.webchat.model.entities.User;
 import com.development.webchat.model.entities.DTO.AuthorMsg;
-import com.development.webchat.model.entities.DTO.MenssageDTO;
+import com.development.webchat.model.entities.DTO.Message;
 import com.development.webchat.repositories.ChatRepository;
 import com.development.webchat.repositories.UserRepository;
 
@@ -33,11 +33,11 @@ public class Seeding implements CommandLineRunner{
 		userRepo.deleteAll();
 		chatRepo.deleteAll();
 		
-		User u1 = new User(null, "luiz", StatusUser.ONLINE);
-		User u2 = new User(null, "lisa", StatusUser.ONLINE);
+		User u1 = new User(null, "luiz", Status.ONLINE);
+		User u2 = new User(null, "lisa", Status.ONLINE);
 		userRepo.saveAll(Arrays.asList(u1,u2));
-		MenssageDTO msg = new MenssageDTO(new AuthorMsg(u1), "opa mano", Instant.parse("2003-03-06T22:10:22Z"));
-		MenssageDTO msg1 = new MenssageDTO(new AuthorMsg(u2), "eai", Instant.parse("2003-03-06T23:10:22Z"));
+		Message msg = new Message(new AuthorMsg(u1), "opa mano", Instant.parse("2003-03-06T22:10:22Z"));
+		Message msg1 = new Message(new AuthorMsg(u2), "eai", Instant.parse("2003-03-06T23:10:22Z"));
 		Chat c1 = new Chat(null);
 		c1.joinUser(u1, u2);
 		c1.getMenssages().addAll(Arrays.asList(msg,msg1));

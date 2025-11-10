@@ -1,6 +1,6 @@
 package com.development.webchat.model.entities;
 
-public enum StatusUser {
+public enum Status {
 
 	OFFLINE(1),
 	ONLINE(2),
@@ -9,7 +9,7 @@ public enum StatusUser {
 	
 	private final int code;
 	
-	private StatusUser(int code) {
+	private Status(int code) {
 		this.code = code;
 	}
 	

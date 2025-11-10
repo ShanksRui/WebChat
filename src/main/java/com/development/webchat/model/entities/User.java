@@ -15,7 +15,7 @@ public class User implements Serializable{
 	@Id
 	private String id;
 	private String name;
-	private StatusUser status;
+	private Status status;
 	
 	@DBRef(lazy = true)
 	private List<Chat> chats = new ArrayList<>();
@@ -24,7 +24,7 @@ public class User implements Serializable{
 		
 	}
 	
-	public User(String id, String name, StatusUser status) {
+	public User(String id, String name, Status status) {
 		this.id = id;
 		this.name = name;
 		this.status = status;
@@ -50,7 +50,7 @@ public class User implements Serializable{
 	}
 
 
-	public StatusUser getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
@@ -65,7 +65,7 @@ public class User implements Serializable{
 	}
 
 
-	public void setStatus(StatusUser status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 

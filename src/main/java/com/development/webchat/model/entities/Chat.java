@@ -3,16 +3,14 @@ package com.development.webchat.model.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.development.webchat.model.entities.DTO.MenssageDTO;;
+import com.development.webchat.model.entities.DTO.Message;;
 
 @Document
 @CompoundIndex(name = "users_Chat",def = "{'idUser0': 1,'idUser1': 1}",unique = true)
@@ -26,7 +24,7 @@ public class Chat implements Serializable {
 	private Instant lastActivity;	
 	private Instant firstChat;
 	
-	private List<MenssageDTO> menssages = new ArrayList<>();
+	private List<Message> menssages = new ArrayList<>();
 	
 	public Chat() {
 		
@@ -61,7 +59,7 @@ public class Chat implements Serializable {
 		setIdUserZ(z.getId());
 	}
 	public Instant flowDateLast(Instant last) {	
-		Instant temp = menssages.stream().map(MenssageDTO::getMommentMsg)
+		Instant temp = menssages.stream().map(Message::getMommentMsg)
 				 .filter(Objects::nonNull)
 				 .max(Instant::compareTo).orElse(null);
 		
@@ -72,7 +70,7 @@ public class Chat implements Serializable {
 		}
 	}
 	public Instant initialMsg(Instant first) {
-		return first = menssages.stream().map(MenssageDTO::getMommentMsg)
+		return first = menssages.stream().map(Message::getMommentMsg)
 				 .filter(Objects::nonNull)
 				 .min(Instant::compareTo).orElse(null);
 	}
@@ -81,12 +79,8 @@ public class Chat implements Serializable {
 	  return menssages.size();
 	}
 	
-	public List<MenssageDTO> getMenssages() {
+	public List<Message> getMenssages() {
 		return menssages;
-	}
-
-	public void setMenssages(List<MenssageDTO> menssages) {
-		this.menssages = menssages;
 	}
 
 	public String getIdUserZ() {
