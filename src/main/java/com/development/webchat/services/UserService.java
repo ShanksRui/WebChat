@@ -1,8 +1,13 @@
 package com.development.webchat.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
+import com.development.webchat.model.entities.User;
 import com.development.webchat.repositories.UserRepository;
+import com.development.webchat.services.exceptions.NotFoundObjectException;
 
 @Service
 public class UserService {
@@ -11,6 +16,20 @@ public class UserService {
 	
 	public UserService(UserRepository repository) {
 		this.repository = repository;
+	}
+	
+	public List<User> findAll(){
+		return repository.findAll();
+	}
+	
+	public User findById(String id) {
+		Optional<User> op = repository.findById(id);
+		return op.orElseThrow(() -> new NotFoundObjectException(id + "not found"));
+	}
+	
+	public void delete(String id) {
+		findById(id);
+		repository.deleteById(id);
 	}
 	
 }
