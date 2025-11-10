@@ -3,24 +3,25 @@ package com.development.webchat.model.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.development.webchat.model.entities.DTO.Message;;
 
 @Document
-@CompoundIndex(name = "users_Chat",def = "{'idUser0': 1,'idUser1': 1}",unique = true)
 public class Chat implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private String id;
-	private String idUserZ;
-	private String idUserX;
+	@DBRef(lazy = true)
+	private Set<User> participants = new HashSet<>();
 	private Instant lastActivity;	
 	private Instant firstChat;
 	
@@ -54,10 +55,7 @@ public class Chat implements Serializable {
 		this.firstChat= initialMsg(firstChat); 	
 		
 	}
-	public void joinUser(User x,User z) {
-		setIdUserX(x.getId());
-		setIdUserZ(z.getId());
-	}
+	
 	public Instant flowDateLast(Instant last) {	
 		Instant temp = menssages.stream().map(Message::getMommentMsg)
 				 .filter(Objects::nonNull)
@@ -83,21 +81,11 @@ public class Chat implements Serializable {
 		return menssages;
 	}
 
-	public String getIdUserZ() {
-		return idUserZ;
+	public Set<User> getParticipants() {
+		return participants;
 	}
 
-	public String getIdUserX() {
-		return idUserX;
-	}
-
-	public void setIdUserZ(String idUserZ) {
-		this.idUserZ = idUserZ;
-	}
-
-	public void setIdUserX(String idUserX) {
-		this.idUserX = idUserX;
-	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
