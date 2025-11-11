@@ -15,6 +15,7 @@ public class User implements Serializable{
 	@Id
 	private String id;
 	private String name;
+	private String password;
 	private Status status;
 	
 	@DBRef(lazy = true)
@@ -24,46 +25,48 @@ public class User implements Serializable{
 		
 	}
 	
-	public User(String id, String name, Status status) {
+	public User(String id, String name,String password, Status status) {
 		this.id = id;
 		this.name = name;
 		this.status = status;
+		this.password = password;
 	}
 
-	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
 	public List<Chat> getChats() {
 		return chats;
 	}
-
+	
 	public void setChats(List<Chat> chats) {
 		this.chats = chats;
 	}
-
+	
 	public String getId() {
 		return id;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
 	public Status getStatus() {
 		return status;
 	}
-
 
 	public void setId(String id) {
 		this.id = id;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public void setStatus(Status status) {
 		this.status = status;
@@ -84,6 +87,5 @@ public class User implements Serializable{
 			return false;
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
-	}
-	
+	}	
 }
