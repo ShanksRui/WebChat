@@ -3,18 +3,19 @@ package com.development.webchat.model.entities.DTO;
 import java.util.Objects;
 
 import com.development.webchat.model.entities.Status;
+import com.development.webchat.model.entities.User;
 
 public class UserDTO {
 
-	
+
 	private String id;
 	private String name;
 	private Status status;
 	
-	public UserDTO(String id, String name, Status status) {
-		this.id = id;
-		this.name = name;
-		this.status = status;
+	public UserDTO(User user) {
+		this.id = user.getId();
+		this.name = user.getName();
+		this.status = user.getStatus();
 	}
 	public String getId() {
 		return id;

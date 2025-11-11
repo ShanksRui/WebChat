@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.development.webchat.model.entities.User;
+import com.development.webchat.model.entities.DTO.UserDTO;
 import com.development.webchat.repositories.UserRepository;
 import com.development.webchat.services.exceptions.NotFoundObjectException;
 
@@ -32,5 +33,13 @@ public class UserService {
 		repository.deleteById(id);
 	}
 	
+	public User insert(User user) {
+		User u = user;
+		return repository.insert(u);		
+	}
 	
+	public static User UpdateFromDTO (UserDTO dto) {
+	   return new User(dto.getId(), dto.getName(), dto.getStatus());
+		
+	}
 }

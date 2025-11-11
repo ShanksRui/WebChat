@@ -31,6 +31,11 @@ public class User implements Serializable{
 		this.status = status;
 		this.password = password;
 	}
+	public User(String id, String name, Status status) {
+		this.id = id;
+		this.name = name;
+		this.status = status;
+	}
 
 	public String getPassword() {
 		return password;

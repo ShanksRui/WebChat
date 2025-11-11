@@ -1,6 +1,7 @@
 package com.development.webchat.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.development.webchat.model.entities.User;
+import com.development.webchat.model.entities.DTO.UserDTO;
 import com.development.webchat.services.UserService;
 @RestController
 @RequestMapping("/users")
@@ -21,14 +23,17 @@ public class UserResource {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
+	public ResponseEntity<List<UserDTO>> findAll(){
 		List<User> users = service.findAll();
-		return ResponseEntity.ok().body(users);
+		List<UserDTO> dtos = users.stream()
+				.map(UserDTO::new)
+				.collect(Collectors.toList());								
+		return ResponseEntity.ok().body(dtos);
 	}
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findById(@PathVariable String id){
-		User c = service.findById(id);
-		return ResponseEntity.ok().body(c);
+	public ResponseEntity<UserDTO> findById(@PathVariable String id){
+		User user = service.findById(id);
+		return ResponseEntity.ok().body(new UserDTO(user));
 	}
 	public ResponseEntity<Void> delete(@PathVariable String id){
 		service.delete(id);
