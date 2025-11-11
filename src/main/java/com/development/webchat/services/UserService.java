@@ -40,6 +40,5 @@ public class UserService {
 	
 	public static User UpdateFromDTO (UserDTO dto) {
 	   return new User(dto.getId(), dto.getName(), dto.getStatus());
-		
 	}
 }

@@ -1,7 +1,11 @@
 package com.development.webchat.model.entities.DTO;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
+import com.development.webchat.model.entities.Chat;
 import com.development.webchat.model.entities.Status;
 import com.development.webchat.model.entities.User;
 
@@ -11,11 +15,14 @@ public class UserDTO {
 	private String id;
 	private String name;
 	private Status status;
+	private List<String> chatsID = new ArrayList<>();
 	
 	public UserDTO(User user) {
 		this.id = user.getId();
 		this.name = user.getName();
 		this.status = user.getStatus();
+		this.chatsID = getIds(user.getChats());
+		
 	}
 	public String getId() {
 		return id;
@@ -49,5 +56,12 @@ public class UserDTO {
 			return false;
 		UserDTO other = (UserDTO) obj;
 		return Objects.equals(id, other.id);
+	}
+	public List<String> getChatsID() {
+		return chatsID;
+	}
+	public List<String> getIds(List<Chat> chats){
+		List<String> ids = chats.stream().map(Chat::getId).collect(Collectors.toList());
+		return ids;
 	}
 }
