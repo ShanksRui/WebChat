@@ -52,7 +52,7 @@ public class UserResource {
 	@PostMapping
 	public ResponseEntity<UserDTO> insert(@RequestBody UserDTO dto){
 		User user = service.updateFromDTO(dto);
-		service.insert(user);
+		user = service.insert(user);
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(uri).body(new UserDTO(user));
