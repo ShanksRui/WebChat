@@ -38,7 +38,18 @@ public class UserService {
 		return repository.insert(u);		
 	}
 	
-	public static User UpdateFromDTO (UserDTO dto) {
+	public void update (User user) {
+		User entity = findById(user.getId());
+		updateEntity(entity, user);
+	    repository.save(entity);
+	}
+	
+	public User updateFromDTO (UserDTO dto) {
 	   return new User(dto.getId(), dto.getName(), dto.getStatus());
+	}
+	public void updateEntity(User entity,User user) {
+		entity.setName(user.getName());
+		entity.setPassword(user.getPassword());
+		entity.setStatus(user.getStatus());
 	}
 }

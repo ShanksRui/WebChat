@@ -17,6 +17,10 @@ public class UserDTO {
 	private Status status;
 	private List<String> chatsID = new ArrayList<>();
 	
+	public UserDTO() {
+		
+	}
+	
 	public UserDTO(User user) {
 		this.id = user.getId();
 		this.name = user.getName();

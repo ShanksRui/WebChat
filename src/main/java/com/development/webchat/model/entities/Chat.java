@@ -80,7 +80,6 @@ public class Chat implements Serializable {
 		return messages;
 	}
 
-  
 	public String getUser0Id() {
 		return user0Id;
 	}
