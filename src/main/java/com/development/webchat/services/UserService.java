@@ -47,6 +47,7 @@ public class UserService {
 	public User updateFromDTO (UserDTO dto) {
 	   return new User(dto.getId(), dto.getName(), dto.getStatus());
 	}
+	
 	public void updateEntity(User entity,User user) {
 		entity.setName(user.getName());
 		entity.setPassword(user.getPassword());
