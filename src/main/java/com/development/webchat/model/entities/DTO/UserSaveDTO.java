@@ -7,7 +7,7 @@ public class UserSaveDTO {
 
 	private String name;
 	private Status status;
-	private String passwor;
+	private String password;
 
 	public UserSaveDTO() {
 
@@ -16,7 +16,7 @@ public class UserSaveDTO {
 	public UserSaveDTO(User user) {
 		this.name = user.getName();
 		this.status = user.getStatus();
-		this.passwor = user.getPassword();
+		this.password = user.getPassword();
 	}
 
 	public String getName() {
@@ -27,8 +27,8 @@ public class UserSaveDTO {
 		return status;
 	}
 
-	public String getPasswor() {
-		return passwor;
+	public String getPassword() {
+		return password;
 	}
 
 	public void setName(String name) {
@@ -39,13 +39,13 @@ public class UserSaveDTO {
 		this.status = status;
 	}
 
-	public void setPasswor(String passwor) {
-		this.passwor = passwor;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public UserSaveDTO(String name, String passwor) {
+	public UserSaveDTO(String name, String password) {
 		super();
 		this.name = name;
-		this.passwor = passwor;
+		this.password = password;
 	}
 }

@@ -39,31 +39,32 @@ public class UserService {
 		return repository.insert(user);		
 	}
 	
-	public void update (User user) {
+	public User update (User user) {
 		User entity = findById(user.getId());
-		updateEntity(entity, user);
+		updateEntityFields(entity, user);
 	    repository.save(entity);
+	    return entity;
 	}
 	
-	public User updateFromDTO (UserDTO dto) {
+	public User fromDTO (UserDTO dto) {
 	   return new User(dto.getId(), dto.getName(), dto.getStatus());
 	}
-	public User updateSaveFromDTO (UserSaveDTO dto) {
+	public User fromSaveDTO (UserSaveDTO dto) {
 		   User user = new User();
 		   user.setName(dto.getName());
-		   user.setPassword(dto.getPasswor());
+		   user.setPassword(dto.getPassword());
 		   user.setStatus(dto.getStatus());
 		   return user;
 		}
-	public User updateUpFromDTO (UserUpdateDTO dto) {
+	public User fromUpdateDTO (UserUpdateDTO dto) {
 		   User user = new User();
 		   user.setName(dto.getName());
-		   user.setPassword(dto.getPasswor());
+		   user.setPassword(dto.getPassword());
 		   user.setStatus(dto.getStatus());
 		   return user;
 		}
 	
-	public void updateEntity(User entity,User user) {
+	private void updateEntityFields(User entity,User user) {
 		entity.setName(user.getName());
 		entity.setPassword(user.getPassword());
 		entity.setStatus(user.getStatus());

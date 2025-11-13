@@ -52,19 +52,19 @@ public class UserResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserSaveDTO> insert(@RequestBody UserSaveDTO dto){
-		User user = service.updateSaveFromDTO(dto);
+	public ResponseEntity<UserDTO> insert(@RequestBody UserSaveDTO dto){
+		User user = service.fromSaveDTO(dto);
 		user = service.insert(user);
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
-		return ResponseEntity.created(uri).body(new UserSaveDTO(user));
+		return ResponseEntity.created(uri).body(new UserDTO(user));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@PathVariable String id , @RequestBody UserUpdateDTO dto){
-		User user = service.updateUpFromDTO(dto);
+	public ResponseEntity<UserDTO> update(@PathVariable String id , @RequestBody UserUpdateDTO dto){
+		User user = service.fromUpdateDTO(dto);
 		user.setId(id);
 		service.update(user);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().body(new UserDTO(user));
 	}
 }
