@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.development.webchat.model.entities.User;
 import com.development.webchat.model.entities.DTO.UserDTO;
 import com.development.webchat.model.entities.DTO.UserSaveDTO;
+import com.development.webchat.model.entities.DTO.UserUpdateDTO;
 import com.development.webchat.repositories.UserRepository;
 import com.development.webchat.services.exceptions.NotFoundObjectException;
 
@@ -48,6 +49,13 @@ public class UserService {
 	   return new User(dto.getId(), dto.getName(), dto.getStatus());
 	}
 	public User updateSaveFromDTO (UserSaveDTO dto) {
+		   User user = new User();
+		   user.setName(dto.getName());
+		   user.setPassword(dto.getPasswor());
+		   user.setStatus(dto.getStatus());
+		   return user;
+		}
+	public User updateUpFromDTO (UserUpdateDTO dto) {
 		   User user = new User();
 		   user.setName(dto.getName());
 		   user.setPassword(dto.getPasswor());

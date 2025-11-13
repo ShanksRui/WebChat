@@ -3,6 +3,7 @@ package com.development.webchat.model.entities.DTO;
 import java.util.Objects;
 
 import com.development.webchat.model.entities.Status;
+import com.development.webchat.model.entities.User;
 
 public class UserUpdateDTO {
 
@@ -15,11 +16,11 @@ public class UserUpdateDTO {
 		
 	}
 	
-	public UserUpdateDTO(String id, String name, Status status, String passwor) {
-		this.id = id;
-		this.name = name;
-		this.status = status;
-		this.passwor = passwor;
+	public UserUpdateDTO(User user) {
+		this.id = user.getId();
+		this.name = user.getName();
+		this.status = user.getStatus();
+		this.passwor = user.getPassword();
 	}
 
 	public String getId() {

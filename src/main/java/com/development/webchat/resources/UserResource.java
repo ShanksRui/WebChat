@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.development.webchat.model.entities.User;
 import com.development.webchat.model.entities.DTO.UserDTO;
 import com.development.webchat.model.entities.DTO.UserSaveDTO;
+import com.development.webchat.model.entities.DTO.UserUpdateDTO;
 import com.development.webchat.services.UserService;
 @RestController
 @RequestMapping("/users")
@@ -60,7 +61,8 @@ public class UserResource {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@PathVariable String id , @RequestBody UserSaveDTO user){
+	public ResponseEntity<Void> update(@PathVariable String id , @RequestBody UserUpdateDTO dto){
+		User user = service.updateUpFromDTO(dto);
 		user.setId(id);
 		service.update(user);
 		return ResponseEntity.noContent().build();
