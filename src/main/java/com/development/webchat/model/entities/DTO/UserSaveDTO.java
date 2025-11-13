@@ -1,6 +1,7 @@
 package com.development.webchat.model.entities.DTO;
 
 import com.development.webchat.model.entities.Status;
+import com.development.webchat.model.entities.User;
 
 public class UserSaveDTO {
 
@@ -12,10 +13,10 @@ public class UserSaveDTO {
 
 	}
 
-	public UserSaveDTO(String name, Status status, String passwor) {
-		this.name = name;
-		this.status = status;
-		this.passwor = passwor;
+	public UserSaveDTO(User user) {
+		this.name = user.getName();
+		this.status = user.getStatus();
+		this.passwor = user.getPassword();
 	}
 
 	public String getName() {

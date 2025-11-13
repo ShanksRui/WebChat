@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.development.webchat.model.entities.User;
 import com.development.webchat.model.entities.DTO.UserDTO;
+import com.development.webchat.model.entities.DTO.UserSaveDTO;
 import com.development.webchat.services.UserService;
 @RestController
 @RequestMapping("/users")
@@ -50,12 +51,12 @@ public class UserResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDTO> insert(@RequestBody UserDTO dto){
-		User user = service.updateFromDTO(dto);
+	public ResponseEntity<UserSaveDTO> insert(@RequestBody UserSaveDTO dto){
+		User user = service.updateSaveFromDTO(dto);
 		user = service.insert(user);
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
-		return ResponseEntity.created(uri).body(new UserDTO(user));
+		return ResponseEntity.created(uri).body(new UserSaveDTO(user));
 	}
 	
 	@PutMapping("/{id}")
