@@ -33,13 +33,14 @@ public class ChatService {
 	}
 	
 	public Chat insert(String id0,String id1,Message message) {
-		if(repository.existsById(id0)&&repository.existsById(id1))	{
-			throw new IllegalArgumentException("this chat exists between those two users!");
-		}
-		Chat chat = new Chat();
-		chat.setUser0Id(id0);	
-		chat.setUser1Id(id1);
-		chat.getMessages().add(message);	
+		Chat chat = repository.findChatBetween(id0, id1)
+				.orElseGet(() -> {
+		            Chat newChat = new Chat();
+		            newChat.setUser0Id(id0);	
+		            newChat.setUser1Id(id1);
+		            return newChat;
+				});	
+        chat.getMessages().add(message);	
 		return repository.insert(chat);
 		
 	}

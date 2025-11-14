@@ -14,7 +14,6 @@ import com.development.webchat.model.entities.DTO.Message;;
 
 @Document
 @CompoundIndex(name = "users_Chat", def = "{'user0Id': 1, 'user1Id': 1}", unique = true)
-
 public class Chat implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

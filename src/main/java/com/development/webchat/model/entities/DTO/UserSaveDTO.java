@@ -1,5 +1,7 @@
 package com.development.webchat.model.entities.DTO;
 
+import java.util.Objects;
+
 import com.development.webchat.model.entities.Status;
 import com.development.webchat.model.entities.User;
 
@@ -43,9 +45,21 @@ public class UserSaveDTO {
 		this.password = password;
 	}
 
-	public UserSaveDTO(String name, String password) {
-		super();
-		this.name = name;
-		this.password = password;
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, password);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserSaveDTO other = (UserSaveDTO) obj;
+		return Objects.equals(name, other.name) && Objects.equals(password, other.password);
+	}
+
 }
