@@ -38,11 +38,10 @@ public class ChatService {
 		            Chat newChat = new Chat();
 		            newChat.setUser0Id(id0);	
 		            newChat.setUser1Id(id1);
-		            return newChat;
+		            return repository.insert(newChat);
 				});	
-        chat.getMessages().add(message);	
-		return repository.insert(chat);
-		
+		chat.getMessages().add(message);
+		return repository.save(chat);
 	}
 }
 
