@@ -41,6 +41,8 @@ public class ChatService {
 		            return repository.insert(newChat);
 				});	
 		chat.getMessages().add(message);
+		chat.setFirstChat(message.getMommentMsg());
+		chat.setLastActivity(message.getMommentMsg());
 		return repository.save(chat);
 	}
 }

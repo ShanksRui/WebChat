@@ -43,8 +43,7 @@ public class Seeding implements CommandLineRunner{
 		c1.setUser1Id(u2.getId());
 		c1.getMessages().addAll(Arrays.asList(msg,msg1));
 		c1.setLastActivity(msg1.getMommentMsg());
-		c1.setFirstChat(msg.getMommentMsg());
-        
+		c1.setFirstChat(msg.getMommentMsg());   
 		u1.getChats().add(c1);
 		u2.getChats().add(c1);
 		chatRepo.save(c1);

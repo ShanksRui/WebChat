@@ -23,7 +23,7 @@ public class Chat implements Serializable {
 	    private String user1Id;
 	    private List<Message> messages = new ArrayList<>();
 	    private Instant lastActivity;
-	    private Instant firstChat;
+        private Instant firstChat;
 	
 	public Chat() {
 		
@@ -50,7 +50,7 @@ public class Chat implements Serializable {
 	}
 	
 	public void setFirstChat(Instant firstChat) {
-		this.firstChat= initialMsg(firstChat); 	
+		this.firstChat= initialMsg(); 	
 		
 	}
 	
@@ -59,14 +59,14 @@ public class Chat implements Serializable {
 				 .filter(Objects::nonNull)
 				 .max(Instant::compareTo).orElse(null);
 		
-		if(last.equals(temp)){
-			return last;
-		}else {
-			throw new IllegalArgumentException("argument invalid");
-		}
+	    if(last.isAfter(temp) || last.equals(temp)) {
+	    	return last;
+	    }else {
+	    	return temp;
+	    }
 	}
-	public Instant initialMsg(Instant first) {
-		return first = messages.stream().map(Message::getMommentMsg)
+	public Instant initialMsg() {
+		return messages.stream().map(Message::getMommentMsg)
 				 .filter(Objects::nonNull)
 				 .min(Instant::compareTo).orElse(null);
 	}
