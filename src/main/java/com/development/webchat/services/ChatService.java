@@ -43,8 +43,7 @@ public class ChatService {
 		            newChat.setUser0Id(id0);	
 		            newChat.setUser1Id(id1);
 		            return repository.insert(newChat);
-				});
-		
+				});		
 		User user0 = userRepository.findById(chat.getUser0Id()).orElseThrow();
 		User user1 = userRepository.findById(chat.getUser1Id()).orElseThrow();
 		
@@ -60,9 +59,7 @@ public class ChatService {
 			return repository.save(chat);			
 		}else {
 			throw new IllegalArgumentException("name of author is not contains in chat");
-		}
-		
-		
+		}		
 	}
 }
 
