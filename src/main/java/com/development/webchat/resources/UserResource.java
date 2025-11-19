@@ -20,48 +20,46 @@ import com.development.webchat.model.entities.DTO.UserDTO;
 import com.development.webchat.model.entities.DTO.UserSaveDTO;
 import com.development.webchat.model.entities.DTO.UserUpdateDTO;
 import com.development.webchat.services.UserService;
+
 @RestController
 @RequestMapping("/users")
 public class UserResource {
 
 	private final UserService service;
-	
+
 	public UserResource(UserService service) {
 		this.service = service;
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<UserDTO>> findAll(){
+	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> users = service.findAll();
-		List<UserDTO> dtos = users.stream()
-				.map(UserDTO::new)
-				.collect(Collectors.toList());	
+		List<UserDTO> dtos = users.stream().map(UserDTO::new).collect(Collectors.toList());
 		return ResponseEntity.ok().body(dtos);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDTO> findById(@PathVariable String id){
+	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
 		User user = service.findById(id);
 		return ResponseEntity.ok().body(new UserDTO(user));
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable String id){
+	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<UserDTO> insert(@RequestBody UserSaveDTO dto){
+	public ResponseEntity<UserDTO> insert(@RequestBody UserSaveDTO dto) {
 		User user = service.fromSaveDTO(dto);
 		user = service.insert(user);
-		URI uri = ServletUriComponentsBuilder
-				.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(uri).body(new UserDTO(user));
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable String id , @RequestBody UserUpdateDTO dto){
+	public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody UserUpdateDTO dto) {
 		User user = service.fromUpdateDTO(dto);
 		user.setId(id);
 		service.update(user);

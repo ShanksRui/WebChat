@@ -22,32 +22,36 @@ import com.development.webchat.services.ChatService;
 public class ChatResource {
 
 	private final ChatService service;
-	
+
 	public ChatResource(ChatService service) {
 		this.service = service;
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<Chat>> findAll(){
+	public ResponseEntity<List<Chat>> findAll() {
 		List<Chat> chats = service.findAll();
 		return ResponseEntity.ok().body(chats);
 	}
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Chat> findById(@PathVariable String id){
+	public ResponseEntity<Chat> findById(@PathVariable String id) {
 		Chat c = service.findById(id);
 		return ResponseEntity.ok().body(c);
 	}
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable String id){
+	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+
 	@PostMapping("/{id0}/{id1}")
-	public ResponseEntity<Chat> insert (@PathVariable String id0,@PathVariable String id1, @RequestBody Message message){
+	public ResponseEntity<Chat> insert(@PathVariable String id0, @PathVariable String id1,
+			@RequestBody Message message) {
 		Chat chat = service.insert(id0, id1, message);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}").buildAndExpand(chat.getId()).toUri();
 		return ResponseEntity.created(uri).body(chat);
-		
+
 	}
-	
+
 }

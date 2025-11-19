@@ -49,7 +49,8 @@ public class Chat implements Serializable {
 	   this.lastActivity = flowDateLast(lastActivity);
 	}
 	
-	public void setFirstChat(Instant firstChat) {
+	public void setFirstChat() {
+		if(this.firstChat == null)
 		this.firstChat= initialMsg(); 	
 		
 	}

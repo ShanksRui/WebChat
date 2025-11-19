@@ -28,7 +28,7 @@ public class ChatService {
 	
 	public Chat findById(String id) {
 		Optional<Chat> op = repository.findById(id);
-		return op.orElseThrow(() -> new NotFoundObjectException(id + "not found"));
+		return op.orElseThrow(() -> new NotFoundObjectException("Id:"+id + " not found"));
 	}
 	
 	public void delete(String id) {
@@ -42,7 +42,7 @@ public class ChatService {
 		            Chat newChat = new Chat();
 		            newChat.setUser0Id(id0);	
 		            newChat.setUser1Id(id1);
-		            return repository.insert(newChat);
+		            return newChat;
 				});		
 		User user0 = userRepository.findById(chat.getUser0Id()).orElseThrow();
 		User user1 = userRepository.findById(chat.getUser1Id()).orElseThrow();
@@ -54,7 +54,7 @@ public class ChatService {
 		        	
 		if(isValidAuthor) {
 			chat.getMessages().add(message);
-			chat.setFirstChat(message.getMommentMsg());
+			chat.setFirstChat();
 			chat.setLastActivity(message.getMommentMsg());
 			return repository.save(chat);			
 		}else {
