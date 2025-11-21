@@ -51,8 +51,7 @@ public class Chat implements Serializable {
 	
 	public void setFirstChat() {
 		if(this.firstChat == null)
-		this.firstChat= initialMsg(); 	
-		
+		this.firstChat= initialMsg(); 		
 	}
 	
 	public Instant flowDateLast(Instant last) {	

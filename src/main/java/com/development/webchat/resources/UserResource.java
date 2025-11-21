@@ -21,6 +21,8 @@ import com.development.webchat.model.entities.DTO.UserSaveDTO;
 import com.development.webchat.model.entities.DTO.UserUpdateDTO;
 import com.development.webchat.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/users")
 public class UserResource {
@@ -51,7 +53,7 @@ public class UserResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<UserDTO> insert(@RequestBody UserSaveDTO dto) {
+	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserSaveDTO dto) {
 		User user = service.fromSaveDTO(dto);
 		user = service.insert(user);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
@@ -59,7 +61,7 @@ public class UserResource {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody UserUpdateDTO dto) {
+	public ResponseEntity<UserDTO> update(@PathVariable String id,@Valid @RequestBody UserUpdateDTO dto) {
 		User user = service.fromUpdateDTO(dto);
 		user.setId(id);
 		service.update(user);

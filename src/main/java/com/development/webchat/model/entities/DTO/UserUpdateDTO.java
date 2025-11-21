@@ -5,11 +5,18 @@ import java.util.Objects;
 import com.development.webchat.model.entities.Status;
 import com.development.webchat.model.entities.User;
 
+import jakarta.validation.constraints.Size;
+
 public class UserUpdateDTO {
 
 	private String id;
+
+    @Size(min = 3,max = 20,message = "the name must be to have between 3 and 20 characters ")
 	private String name;
+    
 	private Status status;
+	
+	@Size(min = 5,max = 20,message = "password must be least 3 characters")
 	private String password;
 	
 	public UserUpdateDTO() {
