@@ -17,4 +17,12 @@ public enum Status {
 		return code;
 	}
 	
-}
+	public static Status valueOf(int code) {
+			for(Status s: Status.values()) {
+				if(s.getCode() == code) {
+					return s;
+				}
+			}	
+				throw new IllegalArgumentException("Invalid status code"+ code);
+			}
+	}
