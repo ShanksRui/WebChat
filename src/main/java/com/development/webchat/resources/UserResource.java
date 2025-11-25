@@ -21,6 +21,8 @@ import com.development.webchat.model.entities.DTO.UserSaveDTO;
 import com.development.webchat.model.entities.DTO.UserUpdateDTO;
 import com.development.webchat.services.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -33,6 +35,9 @@ public class UserResource {
 		this.service = service;
 	}
 
+	
+	@Operation(summary = "List of all Users")
+	@ApiResponse(responseCode = "200",description = "List returned with successful")
 	@GetMapping
 	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> users = service.findAll();
@@ -40,18 +45,24 @@ public class UserResource {
 		return ResponseEntity.ok().body(dtos);
 	}
 
+	@Operation(summary = "Returns a user by id")
+	@ApiResponse(responseCode = "200",description = "User returned with successful")
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
 		User user = service.findById(id);
 		return ResponseEntity.ok().body(new UserDTO(user));
 	}
 
+	@Operation(summary = "Delete user by id ")
+	@ApiResponse(responseCode = "204",description = "Deleted user with successful")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
+	@Operation(summary = "create a user")
+	@ApiResponse(responseCode = "201",description = "createded user with successful")
 	@PostMapping
 	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserSaveDTO dto) {
 		User user = service.fromSaveDTO(dto);
@@ -60,6 +71,8 @@ public class UserResource {
 		return ResponseEntity.created(uri).body(new UserDTO(user));
 	}
 
+	@Operation(summary = "update a user")
+	@ApiResponse(responseCode = "200",description = "updated user with successful")
 	@PutMapping("/{id}")
 	public ResponseEntity<UserDTO> update(@PathVariable String id,@Valid @RequestBody UserUpdateDTO dto) {
 		User user = service.fromUpdateDTO(dto);
