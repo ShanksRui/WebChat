@@ -2,25 +2,24 @@ package com.development.webchat.model.entities.DTO;
 
 import java.util.Objects;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.development.webchat.model.entities.Status;
 import com.development.webchat.model.entities.User;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class UserSaveDTO {
 
 	
-    @NotBlank(message = "the name cannot be empty")
+    @NotEmpty(message = "the name cannot be empty")
     @Size(min = 3,max = 20,message = "the name must be to have between 3 and 20 characters ")
 	private String name;
     
     @NotNull(message = "status cannot be null")
 	private Status status;
     
-    @NotBlank(message = "the password must be mandatory")
+    @NotEmpty(message = "the password must be mandatory")
     @Size(min = 5,max = 20,message = "password must be least 3 characters")
 	private String password;
 
