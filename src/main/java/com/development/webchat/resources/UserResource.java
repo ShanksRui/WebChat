@@ -61,8 +61,8 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@Operation(summary = "create a user")
-	@ApiResponse(responseCode = "201",description = "createded user with successful")
+	@Operation(summary = "Create a user")
+	@ApiResponse(responseCode = "201",description = "Createded user with successful")
 	@PostMapping
 	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserSaveDTO dto) {
 		User user = service.fromSaveDTO(dto);
@@ -71,8 +71,8 @@ public class UserResource {
 		return ResponseEntity.created(uri).body(new UserDTO(user));
 	}
 
-	@Operation(summary = "update a user")
-	@ApiResponse(responseCode = "200",description = "updated user with successful")
+	@Operation(summary = "Update a user")
+	@ApiResponse(responseCode = "200",description = "Updated user with successful")
 	@PutMapping("/{id}")
 	public ResponseEntity<UserDTO> update(@PathVariable String id,@Valid @RequestBody UserUpdateDTO dto) {
 		User user = service.fromUpdateDTO(dto);
