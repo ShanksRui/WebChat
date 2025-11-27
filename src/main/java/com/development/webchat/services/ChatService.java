@@ -44,8 +44,8 @@ public class ChatService {
 		            newChat.setUser1Id(id1);
 		            return newChat;
 				});		
-		User user0 = userRepository.findById(chat.getUser0Id()).orElseThrow();
-		User user1 = userRepository.findById(chat.getUser1Id()).orElseThrow();
+		User user0 = userRepository.findById(chat.getUser0Id()).orElseThrow(() -> new NotFoundObjectException("Id:" + chat.getUser0Id() + " not found"));
+		User user1 = userRepository.findById(chat.getUser1Id()).orElseThrow(() -> new NotFoundObjectException("Id:" + chat.getUser1Id() + " not found"));
 		
 		String name = message.getAuthorMsg().getName();
 		

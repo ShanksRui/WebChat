@@ -48,7 +48,7 @@ public class ChatResource {
 	}
 	
 	@Operation(summary = "Delete chat by id")
-	@ApiResponse(responseCode = "200",description = "chat deleted with successful")
+	@ApiResponse(responseCode = "204",description = "chat deleted with successful")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
@@ -56,12 +56,12 @@ public class ChatResource {
 	}
 	
 	@Operation(summary = "create chat")
-	@ApiResponse(responseCode = "200",description = "created chat with successful")
+	@ApiResponse(responseCode = "201",description = "created chat with successful")
 	@PostMapping("/{id0}/{id1}")
 	public ResponseEntity<Chat> insert(@PathVariable String id0, @PathVariable String id1,
 			@RequestBody Message message) {
 		Chat chat = service.insert(id0, id1, message);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}").buildAndExpand(chat.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(chat.getId()).toUri();
 		return ResponseEntity.created(uri).body(chat);
 	}
 
