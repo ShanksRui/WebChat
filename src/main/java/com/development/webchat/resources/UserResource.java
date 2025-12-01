@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -73,11 +74,9 @@ public class UserResource {
 
 	@Operation(summary = "Update a user")
 	@ApiResponse(responseCode = "200",description = "Updated user with successful")
-	@PutMapping("/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable String id,@Valid @RequestBody UserUpdateDTO dto) {
-		User user = service.fromUpdateDTO(dto);
-		user.setId(id);
-		service.update(user);
+	@PatchMapping("/{id}")
+	public ResponseEntity<UserDTO> update(@PathVariable String id,@Valid @RequestBody UserUpdateDTO dto) {		 
+		User user = service.update(id,dto);
 		return ResponseEntity.ok().body(new UserDTO(user));
 	}
 }

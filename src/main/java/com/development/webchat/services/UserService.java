@@ -39,11 +39,10 @@ public class UserService {
 		return repository.insert(user);
 	}
 
-	public User update(User user) {
-		User entity = findById(user.getId());
-		updateEntityFields(entity, user);
-		repository.save(entity);
-		return entity;
+	public User update(String id, UserUpdateDTO dto) {
+		User entity = findById(id);
+		updateEntityFields(entity, dto);
+		return repository.save(entity);
 	}
 
 	public User fromDTO(UserDTO dto) {
@@ -51,24 +50,17 @@ public class UserService {
 	}
 
 	public User fromSaveDTO(UserSaveDTO dto) {
-		User user = new User();
-		user.setName(dto.getName());
-		user.setPassword(dto.getPassword());
-		user.setStatus(dto.getStatus());
-		return user;
+		return new User(dto.getName(), dto.getPassword(), dto.getStatus());
 	}
 
-	public User fromUpdateDTO(UserUpdateDTO dto) {
-		User user = new User();
-		user.setName(dto.getName());
-		user.setPassword(dto.getPassword());
-		user.setStatus(dto.getStatus());
-		return user;
-	}
-
-	private void updateEntityFields(User entity, User user) {
-		entity.setName(user.getName());
-		entity.setPassword(user.getPassword());
-		entity.setStatus(user.getStatus());
+	private void updateEntityFields(User entity, UserUpdateDTO dto) {
+		if (dto.getName() != null && !dto.getName().isBlank())
+			entity.setName(dto.getName());
+		
+		if (dto.getPassword() != null & !dto.getPassword().isBlank())
+			entity.setPassword(dto.getPassword());
+		
+		if (dto.getStatus() != null)
+			entity.setStatus(dto.getStatus());
 	}
 }

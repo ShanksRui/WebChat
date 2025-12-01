@@ -28,6 +28,7 @@ public class UserDTO {
 		this.chatsID = getIds(user.getChats());
 		
 	}
+	
 	public String getId() {
 		return id;
 	}
