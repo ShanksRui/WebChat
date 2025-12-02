@@ -7,6 +7,7 @@ import com.development.webchat.model.entities.User;
 public class AuthorMsg {
 
 	private String name;
+	private String id;
 	
 	public AuthorMsg() {
 		
@@ -14,6 +15,7 @@ public class AuthorMsg {
 	
 	public AuthorMsg(User user) {
 		this.name = user.getName();
+		this.id = user.getId();
 	}
 
 	public String getName() {
@@ -27,6 +29,14 @@ public class AuthorMsg {
 	@Override
 	public int hashCode() {
 		return Objects.hash(name);
+	}
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override
