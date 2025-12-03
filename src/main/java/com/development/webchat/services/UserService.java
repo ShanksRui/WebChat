@@ -44,6 +44,9 @@ public class UserService {
 		updateEntityFields(entity, dto);
 		return repository.save(entity);
 	}
+	public List<User> searchName(String name){
+		return repository.findByNameContainingIgnoreCase(name);
+	}
 
 	public User fromDTO(UserDTO dto) {
 		return new User(dto.getId(), dto.getName(), dto.getStatus());
