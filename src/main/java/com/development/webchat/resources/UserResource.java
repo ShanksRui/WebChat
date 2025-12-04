@@ -79,11 +79,21 @@ public class UserResource {
 		User user = service.update(id, dto);
 		return ResponseEntity.ok().body(new UserDTO(user));
 	}
+	
+	@Operation(summary = "Search by name")
+	@ApiResponse(responseCode = "200", description = "Search for users by name with successful")
 	@GetMapping("/searchname")
 	public ResponseEntity<List<User>> findByName(@RequestParam String name) {
 		List<User> list = service.searchName(name);
 		return ResponseEntity.ok().body(list);
 	}
+	
+	@Operation(summary = "Search for status "
+			+ " | OFFLINE ->1"
+			+ " | ONLINE ->2"
+			+ " | DO_NOT_DISTURB ->3"
+			+ " | ABSENT ->4 ")
+	@ApiResponse(responseCode = "200", description = "Search for users by status with successful")
 	@GetMapping("/searchstatus")
 	public ResponseEntity<List<UserSimpleDTO>> findStatus(@RequestParam int status) {
 		List<UserSimpleDTO> users = service.searchStatus(status)

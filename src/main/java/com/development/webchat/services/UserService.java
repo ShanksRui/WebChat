@@ -50,10 +50,11 @@ public class UserService {
 		return repository.findByNameContainingIgnoreCase(name);
 	}
 
-	// OFFLINE ->1
-	// ONLINE ->2
-	// DO_NOT_DISTURB ->3
-	// ABSENT ->4
+	/* OFFLINE ->1
+	 ONLINE ->2
+	 DO_NOT_DISTURB ->3
+	 ABSENT ->4 
+   */
 	public List<User> searchStatus(int status) {
 		Status st = Status.valueOf(status);
 		return repository.searchStatus(st.name());
