@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.development.webchat.model.entities.User;
 import com.development.webchat.model.entities.DTO.UserDTO;
 import com.development.webchat.model.entities.DTO.UserSaveDTO;
+import com.development.webchat.model.entities.DTO.UserSimpleDTO;
 import com.development.webchat.model.entities.DTO.UserUpdateDTO;
 import com.development.webchat.services.UserService;
 
@@ -83,4 +84,13 @@ public class UserResource {
 		List<User> list = service.searchName(name);
 		return ResponseEntity.ok().body(list);
 	}
+	@GetMapping("/searchstatus")
+	public ResponseEntity<List<UserSimpleDTO>> findStatus(@RequestParam int status) {
+		List<UserSimpleDTO> users = service.searchStatus(status)
+				.stream()
+				.map(UserSimpleDTO::new)
+				.collect(Collectors.toList());
+		return ResponseEntity.ok().body(users);
+	}
+	
 }

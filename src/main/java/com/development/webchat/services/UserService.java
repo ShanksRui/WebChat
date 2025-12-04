@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.development.webchat.model.entities.Status;
 import com.development.webchat.model.entities.User;
 import com.development.webchat.model.entities.DTO.UserDTO;
 import com.development.webchat.model.entities.DTO.UserSaveDTO;
@@ -44,8 +45,19 @@ public class UserService {
 		updateEntityFields(entity, dto);
 		return repository.save(entity);
 	}
-	public List<User> searchName(String name){
+
+	public List<User> searchName(String name) {
 		return repository.findByNameContainingIgnoreCase(name);
+	}
+
+	// OFFLINE ->1
+	// ONLINE ->2
+	// DO_NOT_DISTURB ->3
+	// ABSENT ->4
+	public List<User> searchStatus(int status) {
+		Status st = Status.valueOf(status);
+		return repository.searchStatus(st.name());
+
 	}
 
 	public User fromDTO(UserDTO dto) {
@@ -59,10 +71,10 @@ public class UserService {
 	private void updateEntityFields(User entity, UserUpdateDTO dto) {
 		if (dto.getName() != null && !dto.getName().isBlank())
 			entity.setName(dto.getName());
-		
+
 		if (dto.getPassword() != null & !dto.getPassword().isBlank())
 			entity.setPassword(dto.getPassword());
-		
+
 		if (dto.getStatus() != null)
 			entity.setStatus(dto.getStatus());
 	}

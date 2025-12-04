@@ -34,7 +34,7 @@ public class Seeding implements CommandLineRunner{
 		chatRepo.deleteAll();
 		
 		User u1 = new User(null, "luiz","2312424", Status.ONLINE);
-		User u2 = new User(null, "lisa","73522335", Status.ONLINE);
+		User u2 = new User(null, "lisa","73522335", Status.DO_NOT_DISTURB);
 		userRepo.saveAll(Arrays.asList(u1,u2));
 		Message msg = new Message(new AuthorMsg(u1), "opa mano", Instant.parse("2003-03-06T22:10:22Z"));
 		Message msg1 = new Message(new AuthorMsg(u2), "eai", Instant.parse("2003-03-06T23:10:22Z"));
