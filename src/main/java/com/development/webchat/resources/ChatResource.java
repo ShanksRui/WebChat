@@ -65,4 +65,11 @@ public class ChatResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(chat.getId()).toUri();
 		return ResponseEntity.created(uri).body(chat);
 	}
+		@Operation(summary = "Search chat between users")
+		@ApiResponse(responseCode = "200",description = "Search made with successful")
+		@GetMapping("/searchchat")
+		public ResponseEntity<Chat> insert(@RequestParam String id0, @RequestParam String id1) {
+			Chat chat = service.findBetweenUsersId(id0, id1);
+			return ResponseEntity.ok().body(chat);
+	}	
 }
