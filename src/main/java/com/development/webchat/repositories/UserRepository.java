@@ -11,7 +11,7 @@ public interface UserRepository extends MongoRepository<User, String>{
 
 	List<User> findByNameContainingIgnoreCase(String name);
 	
-	@Query(value = "{status : ?0}, fields = {name: 1, status: 1}")
+	@Query(value = "{ 'status' : ?0 }", fields = "{ 'name' : 1, 'status' : 1 }")
 	List<User> searchStatus(String status);
 	
 }

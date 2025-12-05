@@ -10,6 +10,7 @@ import com.development.webchat.model.entities.User;
 import com.development.webchat.model.entities.DTO.Message;
 import com.development.webchat.repositories.ChatRepository;
 import com.development.webchat.repositories.UserRepository;
+import com.development.webchat.services.exceptions.ChatBetweenUsersNotFoundException;
 import com.development.webchat.services.exceptions.MessageAuthorNotInChatException;
 import com.development.webchat.services.exceptions.NotFoundObjectException;
 
@@ -57,6 +58,18 @@ public class ChatService {
 		return repository.save(chat);
 	}
 
+	public Chat findBetweenUsersId(String id01, String id02) {
+		userRepository.findById(id01).orElseThrow(()
+				-> new NotFoundObjectException("Id:" + id01 + " not found"));
+		userRepository.findById(id02).orElseThrow(()
+				-> new NotFoundObjectException("Id:" + id02 + " not found"));
+
+		return repository.findChatBetween(id01, id02).orElseGet(() -> {
+			throw new ChatBetweenUsersNotFoundException("those users don't have a common chat. ID1:" + id01 + " ID2:" + id02);
+		});
+		
+	}
+
 	private boolean methodAuxiliary(Chat chat, Message message) {
 		User user0 = userRepository.findById(chat.getUser0Id())
 				.orElseThrow(() -> new NotFoundObjectException("Id:" + chat.getUser0Id() + " not found"));
@@ -69,4 +82,5 @@ public class ChatService {
 		boolean isValidAuthor = id.equals(user0.getId()) || id.equals(user1.getId());
 		return isValidAuthor;
 	}
+
 }
