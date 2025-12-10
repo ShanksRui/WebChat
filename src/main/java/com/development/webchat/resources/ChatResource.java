@@ -68,8 +68,16 @@ public class ChatResource {
 		@Operation(summary = "Search chat between users")
 		@ApiResponse(responseCode = "200",description = "Search made with successful")
 		@GetMapping("/searchchat")
-		public ResponseEntity<Chat> insert(@RequestParam String id0, @RequestParam String id1) {
+		public ResponseEntity<Chat> searchChat(@RequestParam String id0, @RequestParam String id1) {
 			Chat chat = service.findBetweenUsersId(id0, id1);
 			return ResponseEntity.ok().body(chat);
-	}	
+	}
+		
+		@Operation(summary = "Search messages ")
+		@ApiResponse(responseCode = "200",description = "Search messages with successful")
+		@GetMapping("/searchmessage")
+		public ResponseEntity<List<Message>> searchMessages(@RequestParam String text) {
+			List<Message> messages = service.searchMessage(text);
+			return ResponseEntity.ok().body(messages);
+		}
 }

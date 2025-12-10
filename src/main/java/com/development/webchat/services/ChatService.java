@@ -2,6 +2,7 @@ package com.development.webchat.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -69,7 +70,15 @@ public class ChatService {
 		});
 		
 	}
-
+	public List<Message> searchMessage(String text) {
+		List<Chat> chats = repository.searchByMessage(text);
+		
+		return chats.stream()
+    			.flatMap(p -> p.getMessages().stream()
+    					.filter(m-> m.getText().toLowerCase()
+    							.contains(text.toLowerCase()))).collect(Collectors.toList());
+    }	
+	
 	private boolean methodAuxiliary(Chat chat, Message message) {
 		User user0 = userRepository.findById(chat.getUser0Id())
 				.orElseThrow(() -> new NotFoundObjectException("Id:" + chat.getUser0Id() + " not found"));

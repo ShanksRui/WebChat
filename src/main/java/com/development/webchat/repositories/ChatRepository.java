@@ -1,5 +1,6 @@
 package com.development.webchat.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,4 +12,7 @@ public interface ChatRepository extends MongoRepository<Chat, String>{
 
 	@Query("{ $or: [ { 'user0Id': ?0 ,'user1Id': ?1 }, { 'user0Id': ?1, 'user1Id': ?0 } ] }")
 	Optional<Chat> findChatBetween(String id0,String id1);
+	
+	@Query("{ 'messages.text': { $regex: ?0, $options: 'i' } }")
+	List<Chat> searchByMessage(String text);
 }
