@@ -10,6 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.development.webchat.services.exceptions.ChatBetweenUsersNotFoundException;
+import com.development.webchat.services.exceptions.MessageAuthorNotInChatException;
 import com.development.webchat.services.exceptions.NotFoundObjectException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ public class HandlerExceotion {
 				Instant.now(), status.value(), error, e.getMessage(),request.getRequestURI());
 		return ResponseEntity.status(status).body(stde);
 	}
+	
     @ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Map<String,String>> validationError(MethodArgumentNotValidException ex, HttpServletRequest request){
 		Map<String ,String> errors = new HashMap<>();
@@ -34,4 +37,23 @@ public class HandlerExceotion {
     );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 	}
+    
+    @ExceptionHandler(ChatBetweenUsersNotFoundException.class)
+    public ResponseEntity<StandardError> usersNotFound(ChatBetweenUsersNotFoundException e,HttpServletRequest request){
+    	String error = "chat Between Users Not Found";
+    	HttpStatus status = HttpStatus.NOT_FOUND;
+    	StandardError stde = new StandardError(
+				Instant.now(), status.value(), error, e.getMessage(),request.getRequestURI());
+    	return ResponseEntity.status(status).body(stde);
+    }
+    
+    @ExceptionHandler(MessageAuthorNotInChatException.class)
+    public ResponseEntity<StandardError> messageNotInChat (MessageAuthorNotInChatException e,HttpServletRequest request){
+    	String error = "message is not in the chat";
+    	HttpStatus status = HttpStatus.NOT_FOUND;
+    	StandardError stde = new StandardError(
+				Instant.now(), status.value(), error, e.getMessage(),request.getRequestURI());
+    	return ResponseEntity.status(status).body(stde);
+          
+    }
 }
