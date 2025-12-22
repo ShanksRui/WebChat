@@ -18,23 +18,6 @@ Thumbs.db
 # Ambiente
 .env
 .env.*
-# Maven
-target/
-*.log
 
-# IDEs
-.idea/
-.vscode/
-*.iml
-
-# Git
-.git/
-.gitignore
-
-# Sistema
-.DS_Store
-Thumbs.db
-
-# Ambiente
-.env
-.env.*
+# UML / Diagramas
+WebChat.drawio.png
