@@ -1,5 +1,5 @@
  
-# Projeto desenvolvido com Spring Boot + MongoDB, utilizando MongoDB  como banco NoSQL para o  deploy no Render.
+# Projeto desenvolvido com Spring Boot + MongoDB, aplicando o deploy no Render.
 # WebChat API (Spring Boot + MongoDB/MongoDB-Atlas)
  
 *DIAGRAMA UML*
@@ -38,7 +38,7 @@ src/main/java/com/development/webchat
 ├── repositories
 ├── resources                # Controllers REST
 ├── resources/exceptions     # Tratamento global de exceções
-└── services
+└── services/exceptions
 ```
 
 ##  Modelo de dados (resumo)
@@ -90,7 +90,6 @@ SPRING_DATA_MONGODB_URI
 | Variável | Obrigatória | Exemplo |
 |---|---|---|
 | SPRING_DATA_MONGODB_URI | Sim | mongodb+srv://user:pass@cluster.mongodb.net/webchat?retryWrites=true&w=majority |
-| PORT (Render) | Não (Render injeta) | 8080 |
 
 > A aplicação expõe a porta 8080 no container.
 
@@ -125,7 +124,7 @@ Aplicação disponível em:
 
 ### Exemplo - criar usuário
 
-`POST /users`
+POST /users
 
 ```json
 {
